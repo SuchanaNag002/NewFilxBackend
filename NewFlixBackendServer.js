@@ -26,23 +26,26 @@ app.route("/login/:email/:password")
   }
   person.findOne({email:req.params.email}, function (err, personData) {
   if (err) console.log(err);
-  data.email = true;
-  s = "Email Found<br>";
-  if(personData.password == req.params.password) {
-    data.password =false;
-    s += "Password Matches!\n";
-    if (!personData.login) s+="User now logged In<br>";
-    else data.signedIn = true //s += "Error! User Already logged in!<br>";}
-  else s+= "Error!Password Incorrect<br>";
-  res.send(data);
-  console.log( personData);
+  if (personData == null) res.send(data);
+  else{
+      data.email = true;
+      s = "Email Found<br>";
+      if(personData.password == req.params.password) {
+        data.password =true;
+        s += "Password Matches!\n";
+        if (!personData.login) s+="User now logged In<br>";
+        else data.signedIn = true;} //s += "Error! User Already logged in!<br>";}
+      else s+= "Error!Password Incorrect<br>";
+      res.send(data);
+      //console.log(data);
+    }
   });
 })
 
 
 let port = process.env.PORT;
 if (port == null || port == ""){
-  port = 3000;
+  port = 8000;
 }
 
 app.listen(port, ()=>{
