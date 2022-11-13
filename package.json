@@ -1,0 +1,16 @@
+{
+  "name": "newflixbackend",
+  "version": "1.0.0",
+  "description": "Backend Server for serving NewFlix API calls",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Ankan Halder",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.7.0"
+  }
+}
