@@ -14,20 +14,27 @@ const userSchema = new mongoose.Schema({
   catagories:Array
 });
 mongoose.connect("mongodb+srv://ankanHalder:bananamanonrun12345@cluster0.bg35g.mongodb.net/userDataDB");
-
+const person = mongoose.model('userData', userSchema);
 
 app.route("/login/:email/:password")
 .get((req,res)=>{
-  const person = mongoose.model('userData', userSchema);
+
+  let data = {
+    email : false,
+    password : false,
+    signedIn : false
+  }
   person.findOne({email:req.params.email}, function (err, personData) {
   if (err) console.log(err);
+  data.email = true;
   s = "Email Found<br>";
   if(personData.password == req.params.password) {
+    data.password =false;
     s += "Password Matches!\n";
     if (!personData.login) s+="User now logged In<br>";
-    else s += "Error! User Already logged in!<br>";}
+    else data.signedIn = true //s += "Error! User Already logged in!<br>";}
   else s+= "Error!Password Incorrect<br>";
-  res.send(s);
+  res.send(data);
   console.log( personData);
   });
 })
