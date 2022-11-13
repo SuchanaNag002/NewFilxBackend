@@ -32,6 +32,12 @@ app.route("/login/:email/:password")
   });
 })
 
-app.listen(3000, ()=>{
-  console.log("Server Running on Port 3000");
+
+let port = process.env.PORT;
+if (port == null || port == ""){
+  port = 3000;
+}
+
+app.listen(port, ()=>{
+  console.log("Server is Running ...... ");
 } );
