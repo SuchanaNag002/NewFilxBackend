@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
@@ -13,7 +15,7 @@ const userSchema = new mongoose.Schema({
   last_viewed: Array,
   catagories:Array
 });
-mongoose.connect("mongodb+srv://ankanHalder:bananamanonrun12345@cluster0.bg35g.mongodb.net/userDataDB");
+mongoose.connect("mongodb+srv://" + process.env.mongoEmailID + ":" + process.env.mongoPassword + "@cluster0.bg35g.mongodb.net/userDataDB");
 const person = mongoose.model('userData', userSchema);
 
 app.route("/login/:email/:password")
@@ -37,7 +39,6 @@ app.route("/login/:email/:password")
         else data.signedIn = true;} //s += "Error! User Already logged in!<br>";}
       else s+= "Error!Password Incorrect<br>";
       res.send(data);
-      //console.log(data);
     }
   });
 })
